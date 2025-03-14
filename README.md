@@ -1,0 +1,1 @@
+This project involves building a library management system using Django. The system is designed to manage various aspects of a library, including books, users, and borrow/return functionality. The application allows library staff and members to interact with the system for easy management of book inventory and member records.
