@@ -1,0 +1,49 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+<h2>Manage Users</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>  <!-- Make sure your CustomUser model has a 'role' field -->
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+
+{% extends "library/base.html" %}
+
+{% block content %}
+<h2>Manage Users</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+            <a href="{% url 'edit_user' user.id %}">Edit</a> |
+            <a href="{% url 'delete_user' user.id %}" onclick="return confirm('Are you sure?');">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
