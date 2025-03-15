@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import register, user_login, user_logout, manage_books, manage_users, edit_user, delete_user , add_book
-
+from .views import register, user_login, user_logout, manage_books, manage_users, add_book, edit_book, delete_book
 
 urlpatterns = [
     path('register/', register, name='register'),
@@ -9,7 +8,7 @@ urlpatterns = [
     path('manage-books/', manage_books, name='manage_books'),
     path('manage-users/', manage_users, name='manage_users'),
     path('add-book/', add_book, name='add_book'),
-    path('edit-user/<int:user_id>/', edit_user, name='edit_user'),
-    path('delete-user/<int:user_id>/', delete_user, name='delete_user'),
+    path('edit-book/<int:book_id>/', edit_book, name='edit_book'),
+    path('delete-book/<int:book_id>/', delete_book, name='delete_book'),
 ]
 

@@ -29,6 +29,10 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'library.CustomUser'
 
+LOGIN_REDIRECT_URL = "/manage-books/"  # Change this to your dashboard URL
+LOGOUT_REDIRECT_URL = "/login/"
+
+
 LOGIN_URL = '/login/'  # This should match the login URL in your 'library/urls.py'
 
 

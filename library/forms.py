@@ -1,16 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+from .models import CustomUser, Book
 
+# User Registration Form (Single Version)
 class CustomUserCreationForm(UserCreationForm):
     role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, required=True)
 
-    class Meta:
-        model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'role']
-
-
-class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
@@ -20,3 +15,9 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', 'role']
+
+# Book Form (Fixing Import Error)
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'isbn', 'published_date', 'quantity']
