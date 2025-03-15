@@ -1,0 +1,31 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+<h2>Manage Books</h2>
+<a href="{% url 'add_book' %}">Add New Book</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Published Date</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.published_date }}</td>
+        <td>{{ book.quantity }}</td>
+        <td>
+            <a href="{% url 'edit_book' book.id %}">Edit</a> |
+            <a href="{% url 'delete_book' book.id %}" onclick="return confirm('Are you sure?');">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
