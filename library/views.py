@@ -8,10 +8,10 @@ from .models import CustomUser
 from .decorators import role_required
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import CustomUser
-from django.contrib.auth.decorators import login_required
-from .decorators import role_required
 from django.contrib import messages
+
+from .models import Book
+
 
 # User Registration
 def register(request):
@@ -84,3 +84,57 @@ def delete_user(request, user_id):
     user.delete()
     messages.success(request, 'User deleted successfully.')
     return redirect('manage_users')
+
+##################################################
+
+
+# Manage Books (List Books)
+@login_required
+@role_required(allowed_roles=['admin', 'superadmin'])
+def manage_books(request):
+    books = Book.objects.all()
+    return render(request, 'library/manage_books.html', {'books': books})
+
+# Add Book
+@login_required
+@role_required(allowed_roles=['admin', 'superadmin'])
+def add_book(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        author = request.POST.get('author')
+        isbn = request.POST.get('isbn')
+        published_date = request.POST.get('published_date')
+        quantity = request.POST.get('quantity')
+
+        Book.objects.create(title=title, author=author, isbn=isbn, published_date=published_date, quantity=quantity)
+        messages.success(request, 'Book added successfully.')
+        return redirect('manage_books')
+
+    return render(request, 'library/add_book.html')
+
+# Edit Book
+@login_required
+@role_required(allowed_roles=['admin', 'superadmin'])
+def edit_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    
+    if request.method == 'POST':
+        book.title = request.POST.get('title')
+        book.author = request.POST.get('author')
+        book.isbn = request.POST.get('isbn')
+        book.published_date = request.POST.get('published_date')
+        book.quantity = request.POST.get('quantity')
+        book.save()
+        messages.success(request, 'Book updated successfully.')
+        return redirect('manage_books')
+
+    return render(request, 'library/edit_book.html', {'book': book})
+
+# Delete Book
+@login_required
+@role_required(allowed_roles=['admin', 'superadmin'])
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    book.delete()
+    messages.success(request, 'Book deleted successfully.')
+    return redirect('manage_books')

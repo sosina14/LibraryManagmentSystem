@@ -1,7 +1,5 @@
 from django.urls import path
-from .views import register, user_login, user_logout
-
-from .views import manage_books, manage_users, edit_user, delete_user , add_book
+from .views import register, user_login, user_logout, manage_books, manage_users, edit_user, delete_user , add_book
 
 urlpatterns = [
     path('register/', register, name='register'),
